@@ -1,0 +1,8 @@
+For 0.5:
+    * Zooming and prefered viewport height;
+
+For 0.6:
+    * Setting fold size;
+
+For 1.0:
+    * Internal - QML based viewer;

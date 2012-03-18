@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Version=0.2
+Name=QWSnapshot
+GenericName=Taking website snapshots
+Exec=/usr/local/bin/qwsnapshot
+Comment=Application for taking website snapshots
+Icon=QWSnapshot
+Terminal=false
+Categories=Qt;Internet;

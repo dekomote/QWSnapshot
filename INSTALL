@@ -1,0 +1,12 @@
+QWSnapshot uses qmake.
+
+mkdir build
+cd build
+qmake ../src
+make
+
+To install:
+(sudo) make install
+
+To use:
+$ qwsnapshot
