@@ -50,13 +50,11 @@ void MainWindow::changeEvent(QEvent *e)
     }
 }
 
-void MainWindow::on_urlEdit_textChanged(const QString &arg1)
+void MainWindow::on_urlEdit_textChanged()
 {
-
-    if(ui->urlEdit->text() != ""){
-        ui -> snapButton -> setEnabled(true);
-    }
-    else{
+    if (ui->urlEdit->text() != "") {
+        ui->snapButton->setEnabled(true);
+    } else {
         ui->snapButton->setEnabled(false);
     }
 }
@@ -82,7 +80,7 @@ void MainWindow::page_loaded(bool ok)
     ui->snapButton->setVisible(true);
     ui->stopButton->setVisible(false);
 
-    if(ok){
+    if (ok) {
         // The page loaded successfully. Start rendering the image
 
         // Set webkit's viewport size to match content length and chosen width
@@ -101,21 +99,18 @@ void MainWindow::page_loaded(bool ok)
         QString fileName = QString("%1%2%3_%4.%5").arg(ui->saveLocationEdit->text(), QString(QDir::separator()), QString("QWSnap"), timestamp, selFmt);
 
         // Save the image
-        if(!img->save(fileName, selFmt.toLatin1())){
+        if (!img->save(fileName, selFmt.toLatin1())) {
             QMessageBox::warning(this, "Oops...", "The file can not be written. Check folder permissions.");
-        }
-        else{
+        } else {
             // Open the image if checked
-            if(ui->openImageChk->checkState() == Qt::Checked){
+            if (ui->openImageChk->checkState() == Qt::Checked) {
                 QUrl fileUrl = QUrl().fromLocalFile(fileName);
                 QDesktopServices::openUrl(fileUrl);
             }
         }
-    }
-    else{
+    } else {
         QMessageBox::warning(this, "Oops...", "Either your URL is malformed (use https://), the website is unreachable or you don't have an internet connection.");
     }
-
 }
 
 void MainWindow::page_progress(int progress)
@@ -133,16 +128,13 @@ void MainWindow::on_stopButton_clicked()
     webView->stop();
 }
 
-
 void MainWindow::on_saveSettings_clicked()
 {
-
     settings->setValue("mainwindow/save_location", ui->saveLocationEdit->text());
     settings->setValue("mainwindow/viewport_width", ui->viewportWidth->value());
     settings->setValue("mainwindow/image_format", ui->imgFmtCmb->currentIndex());
     settings->setValue("mainwindow/open_image", ui->openImageChk->checkState() == Qt::Checked);
 }
-
 
 void MainWindow::on_loadSettings_clicked()
 {
@@ -154,24 +146,25 @@ void MainWindow::on_loadSettings_clicked()
 
 void MainWindow::on_saveLocationEdit_editingFinished()
 {
-    if(!QDir().exists(ui->saveLocationEdit->text())){
+    if (!QDir().exists(ui->saveLocationEdit->text())) {
 
         QMessageBox msgBox;
         msgBox.setText("The folder does not exits.");
         msgBox.setInformativeText("Do you want to create this folder?");
         msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
         msgBox.setDefaultButton(QMessageBox::Yes);
+
         int ret = msgBox.exec();
 
-        switch(ret){
-            case QMessageBox::Yes:
-            if(!QDir().mkpath(ui->saveLocationEdit->text())){
+        switch (ret) {
+        case QMessageBox::Yes:
+            if (!QDir().mkpath(ui->saveLocationEdit->text())) {
                 QMessageBox::warning(this, "Oops...", "The path can not be created. Check if the path is valid or path permissions.");
             }
             break;
-            case QMessageBox::No:
+
+        case QMessageBox::No:
             break;
         }
-
     }
 }
