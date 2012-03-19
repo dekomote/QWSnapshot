@@ -1,8 +1,5 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-
-#include <iostream>
-
 #include <QtWebKit/QGraphicsWebView>
 #include <QtWebKit/QWebFrame>
 #include <QDir>
