@@ -23,7 +23,7 @@ protected:
     void changeEvent(QEvent *e);
     
 protected slots:
-    void on_urlEdit_textChanged(const QString &arg1);
+    void on_urlEdit_textChanged();
 
     void on_snapButton_clicked();
 
