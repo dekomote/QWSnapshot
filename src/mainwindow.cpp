@@ -24,7 +24,7 @@ MainWindow::MainWindow(QWidget *parent) :
     // Initialize and load settings
     settings = new QSettings("Atomidata", "QWSnapshot");
     ui->saveLocationEdit->setText(settings->value("mainwindow/save_location", QDir::homePath()).toString());
-    ui->viewportWidth->setValue(settings->value("mainwindow/viewport_width", 1200).toInt());
+    ui->viewportWidth->setValue(settings->value("mainwindow/viewport_width", 1024).toInt());
     ui->imgFmtCmb->setCurrentIndex(settings->value("mainwindow/image_format", 0).toInt());
     ui->openImageChk->setChecked(settings->value("mainwindow/open_image", true).toBool());
 
@@ -90,7 +90,7 @@ void MainWindow::page_loaded(bool ok)
 
         // Set webkit's viewport size to match content length and chosen width
         webView->setResizesToContents(true);
-        webView->page()->setPreferredContentsSize(QSize(ui->viewportWidth->value(), 1080));
+        webView->page()->setPreferredContentsSize(QSize(ui->viewportWidth->value(), 600));
 
         // Initialize the image, render the webkit widget into it
         QImage *img = new QImage(webView->page()->viewportSize(), QImage::Format_ARGB32);
@@ -147,7 +147,7 @@ void MainWindow::on_saveSettings_clicked()
 void MainWindow::on_loadSettings_clicked()
 {
     ui->saveLocationEdit->setText(settings->value("mainwindow/save_location", QDir::homePath()).toString());
-    ui->viewportWidth->setValue(settings->value("mainwindow/viewport_width", 1200).toInt());
+    ui->viewportWidth->setValue(settings->value("mainwindow/viewport_width", 1024).toInt());
     ui->imgFmtCmb->setCurrentIndex(settings->value("mainwindow/image_format", 0).toInt());
     ui->openImageChk->setChecked(settings->value("mainwindow/open_image", true).toBool());
 }
