@@ -38,6 +38,8 @@ private slots:
 
     void on_loadSettings_clicked();
 
+    void on_saveLocationEdit_editingFinished();
+
 private:
     Ui::MainWindow *ui;
 };

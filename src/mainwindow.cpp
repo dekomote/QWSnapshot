@@ -104,12 +104,15 @@ void MainWindow::page_loaded(bool ok)
         QString fileName = QString("%1%2%3_%4.%5").arg(ui->saveLocationEdit->text(), QString(QDir::separator()), QString("QWSnap"), timestamp, selFmt);
 
         // Save the image
-        img->save(fileName, selFmt.toLatin1());
-
-        // Open the image if checked
-        if(ui->openImageChk->checkState() == Qt::Checked){
-            QUrl fileUrl = QUrl().fromLocalFile(fileName);
-            QDesktopServices::openUrl(fileUrl);
+        if(!img->save(fileName, selFmt.toLatin1())){
+            QMessageBox::warning(this, "Oops...", "The file can not be written. Check folder permissions.");
+        }
+        else{
+            // Open the image if checked
+            if(ui->openImageChk->checkState() == Qt::Checked){
+                QUrl fileUrl = QUrl().fromLocalFile(fileName);
+                QDesktopServices::openUrl(fileUrl);
+            }
         }
     }
     else{
@@ -152,5 +155,26 @@ void MainWindow::on_loadSettings_clicked()
     ui->openImageChk->setChecked(settings->value("mainwindow/open_image", true).toBool());
 }
 
+void MainWindow::on_saveLocationEdit_editingFinished()
+{
+    if(!QDir().exists(ui->saveLocationEdit->text())){
 
+        QMessageBox msgBox;
+        msgBox.setText("The folder does not exits.");
+        msgBox.setInformativeText("Do you want to create this folder?");
+        msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+        msgBox.setDefaultButton(QMessageBox::Yes);
+        int ret = msgBox.exec();
 
+        switch(ret){
+            case QMessageBox::Yes:
+            if(!QDir().mkpath(ui->saveLocationEdit->text())){
+                QMessageBox::warning(this, "Oops...", "The path can not be created. Check if the path is valid or path permissions.");
+            }
+            break;
+            case QMessageBox::No:
+            break;
+        }
+
+    }
+}
