@@ -15,6 +15,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     ui->stopButton->setVisible(false);
 
+    ui->mainToolBar->setVisible(false);
+
     // Initialize webView
     webView = new QGraphicsWebView();
 
