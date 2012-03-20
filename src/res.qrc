@@ -1,0 +1,8 @@
+<RCC>
+    <qresource prefix="/icons">
+        <file>accept.png</file>
+        <file>cog.png</file>
+        <file>stop.png</file>
+        <file>script_save.png</file>
+    </qresource>
+</RCC>
