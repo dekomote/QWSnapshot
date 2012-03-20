@@ -2,7 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QtGui/QMainWindow>
-#include <QtWebKit/QGraphicsWebView>
+#include <QtWebKit/QWebView>
 #include <QSettings>
 
 namespace Ui {
@@ -16,7 +16,7 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
-    QGraphicsWebView* webView;
+    QWebView* webView;
     QSettings* settings;
     
 protected:

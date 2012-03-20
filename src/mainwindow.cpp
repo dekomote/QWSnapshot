@@ -1,6 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include <QtWebKit/QGraphicsWebView>
+#include <QtWebKit/QWebView>
 #include <QtWebKit/QWebFrame>
 #include <QDir>
 #include <QDateTime>
@@ -18,7 +18,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->mainToolBar->setVisible(false);
 
     // Initialize webView
-    webView = new QGraphicsWebView();
+    webView = new QWebView();
 
     // Initialize and load settings
     settings = new QSettings("Atomidata", "QWSnapshot");
@@ -86,13 +86,16 @@ void MainWindow::page_loaded(bool ok)
         // The page loaded successfully. Start rendering the image
 
         // Set webkit's viewport size to match content length and chosen width
-        webView->setResizesToContents(true);
+        //webView->setResizesToContents(true); - only if using QGraphicWebView
         webView->page()->setPreferredContentsSize(QSize(ui->viewportWidth->value(), 600));
+        webView->page()->mainFrame()->setScrollBarPolicy(Qt::Horizontal, Qt::ScrollBarAlwaysOff);
+        webView->page()->mainFrame()->setScrollBarPolicy(Qt::Vertical, Qt::ScrollBarAlwaysOff);
+        webView->page()->setViewportSize(QSize(ui->viewportWidth->value(), webView->page()->mainFrame()->contentsSize().height()));
 
         // Initialize the image, render the webkit widget into it
         QImage *img = new QImage(webView->page()->viewportSize(), QImage::Format_ARGB32);
         QPainter *paint = new QPainter(img);
-        webView->page()->currentFrame()->render(paint);
+        webView->page()->mainFrame()->render(paint);
         paint->end();
 
         // Prepare the path, filename
