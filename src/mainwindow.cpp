@@ -70,6 +70,9 @@ void MainWindow::on_snapButton_clicked()
     ui->stopButton->setVisible(true);
 
     QUrl url = ui->urlEdit->text();
+    if(url.scheme()==""){
+        url.setScheme("http");
+    }
 
     webView->setUrl(url);
 }
@@ -86,7 +89,6 @@ void MainWindow::page_loaded(bool ok)
         // The page loaded successfully. Start rendering the image
 
         // Set webkit's viewport size to match content length and chosen width
-        //webView->setResizesToContents(true); - only if using QGraphicWebView
         webView->page()->setPreferredContentsSize(QSize(ui->viewportWidth->value(), 600));
         webView->page()->mainFrame()->setScrollBarPolicy(Qt::Horizontal, Qt::ScrollBarAlwaysOff);
         webView->page()->mainFrame()->setScrollBarPolicy(Qt::Vertical, Qt::ScrollBarAlwaysOff);
@@ -114,7 +116,7 @@ void MainWindow::page_loaded(bool ok)
             }
         }
     } else {
-        QMessageBox::warning(this, "Oops...", "Either your URL is malformed (use https://), the website is unreachable or you don't have an internet connection.");
+        QMessageBox::warning(this, "Oops...", "Either your URL is malformed, the website is unreachable or you don't have an internet connection.");
     }
 }
 
