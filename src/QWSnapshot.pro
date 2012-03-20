@@ -26,3 +26,5 @@ INSTALLS += target launcher icon
 
 RESOURCES += \
     res.qrc
+
+windows:RC_FILE = qwsnapshot.rc
