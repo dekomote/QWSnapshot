@@ -6,6 +6,7 @@
 #include <QDateTime>
 #include <QDesktopServices>
 #include <QMessageBox>
+#include <QFileDialog>
 
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -31,6 +32,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(webView, SIGNAL(loadFinished(bool)), this ,SLOT(page_loaded(bool)));
     connect(webView, SIGNAL(loadProgress(int)), this ,SLOT(page_progress(int)));
     connect(ui->actionAbout, SIGNAL(activated()), this ,SLOT(about_show()));
+    connect(ui->actionAbout_Qt, SIGNAL(activated()), this ,SLOT(about_qt()));
 }
 
 
@@ -173,5 +175,17 @@ void MainWindow::on_saveLocationEdit_editingFinished()
         case QMessageBox::No:
             break;
         }
+    }
+}
+
+void MainWindow::about_qt(){
+    QApplication::aboutQt();
+}
+
+void MainWindow::on_chooseDirBtn_clicked()
+{
+    QString dir = QFileDialog::getExistingDirectory(this, "Open Directory", ui->saveLocationEdit->text(), QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
+    if (dir != "") {
+        ui->saveLocationEdit->setText(dir);
     }
 }

@@ -4,5 +4,6 @@
         <file>cog.png</file>
         <file>stop.png</file>
         <file>script_save.png</file>
+        <file>folder.png</file>
     </qresource>
 </RCC>

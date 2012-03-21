@@ -30,6 +30,7 @@ protected slots:
     void page_loaded(bool);
     void page_progress(int);
     void about_show();
+    void about_qt();
 
     void on_stopButton_clicked();
 
@@ -39,6 +40,8 @@ private slots:
     void on_loadSettings_clicked();
 
     void on_saveLocationEdit_editingFinished();
+
+    void on_chooseDirBtn_clicked();
 
 private:
     Ui::MainWindow *ui;
